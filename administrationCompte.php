@@ -71,7 +71,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="administrationCompte.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -124,7 +124,30 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
+                        <div class="numbers">
+                            <?php
+                            include("connect.php");
+
+                            // Exécution de la requête SQL
+                            $result = mysqli_query($con, "SELECT SUM(id) AS total_balance FROM client");
+
+                            // Vérification des erreurs d'exécution de la requête
+                            if ($result) {
+                                // Extraction de la somme du résultat
+                                $row = mysqli_fetch_assoc($result);
+                                $somme = $row['total_balance'];
+
+                                // Affichage de la somme dans la balise <div>
+                                echo $somme;
+                            } else {
+                                // Gestion des erreurs
+                                echo "Erreur d'exécution de la requête : " . mysqli_error($con);
+                            }
+
+                            // Fermeture de la connexion à la base de données
+                            mysqli_close($con);
+                            ?>
+                        </div>
                         <div class="cardName">Client</div>
                     </div>
 
@@ -146,8 +169,32 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">
+                            <?php
+                            include("connect.php");
+
+                            // Exécution de la requête SQL
+                            $result = mysqli_query($con, "SELECT SUM(balance) AS total_balance FROM compte");
+
+                            // Vérification des erreurs d'exécution de la requête
+                            if ($result) {
+                                // Extraction de la somme du résultat
+                                $row = mysqli_fetch_assoc($result);
+                                $somme = $row['total_balance'];
+
+                                // Affichage de la somme dans la balise <div>
+                                echo $somme . "$";
+                            } else {
+                                // Gestion des erreurs
+                                echo "Erreur d'exécution de la requête : " . mysqli_error($con);
+                            }
+
+                            // Fermeture de la connexion à la base de données
+                            mysqli_close($con);
+                            ?>
+                        </div>
+
+                        <div class="cardName">Capitale</div>
                     </div>
 
                     <div class="iconBx">
@@ -157,7 +204,7 @@
             </div>
 
             <!-- ================ ajoute les client ================= -->
-            <h1 id="ajouter">Ajouter</h1>
+            <h1 id="ajouter">Gestion Compte</h1>
 
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
                 <div class="label">Id Client</div>
@@ -168,18 +215,18 @@
                 <input type="number" name="balance">
                 <button class="submit" type="submit" name="submit">Submit</button>
                 <?php
-                
+
                 include("connect.php");
-                
+
                 if (isset($_POST["submit"])) {
                     $FirstName = htmlspecialchars(strtolower(trim($_POST['FirstName'])));
                     $idClient = htmlspecialchars(strtolower(trim($_POST['idClient'])));
                     $balance = htmlspecialchars(strtolower(trim($_POST['balance'])));
-                
+
                     if ($idClient && $balance && $FirstName) {
                         // Ne spécifiez pas la colonne id dans la requête d'insertion
                         $query = "INSERT INTO compte(idClient,FirstName,balance)values('$idClient', '$FirstName', '$balance')";
-                        mysqli_query($con,$query);
+                        mysqli_query($con, $query);
                         echo "valid";
                     } else {
                         echo "Il faut saisir tous les champs";
@@ -216,7 +263,7 @@
                         echo "<table border='1'>
                                     <thead>
                                     <tr>
-                                        <th>Id Client</th>
+                                        <th>Les Comptes</th>
                                         <th>FirstName</th>
                                         <th>Balance</th>
                                         <th>RIB</th>
@@ -229,7 +276,7 @@
                                                     <tbody><tr>
                                                         <td>{$row['idClient']}</td>
                                                         <td>{$row['FirstName']}</td>
-                                                        <td>{$row['balance']}</td>
+                                                        <td>{$row['balance']}DHs</td>
                                                         <td>{$row['RIB']}</td>
                                                          
                                                      </tr>";
@@ -238,7 +285,7 @@
                     } else {
                         echo "Erreur lors de l'exécution de la requête : " . mysqli_error($con);
                     }
-                   ?>
+                    ?>
                 </div>
 
                 <!-- ================= New Customers ================ -->

@@ -37,7 +37,7 @@ session_start();
                 
                 <input type="password" name="password-repeat" class="form-input" placeholder="Repeat Password">
                 
-                <button type="submit" name="signup-submit" class="form-button">Sign Up</button>
+                <button type="submit" name="signup-submit" class="form-button">Next Up</button>
                 <?php
                 if (isset($_GET['error'])) {
                     if ($_GET['error'] == "emptyfields") {

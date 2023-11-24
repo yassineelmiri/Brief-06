@@ -71,7 +71,7 @@
                 </li>
 
                 <li>
-                    <a href="#">
+                    <a href="administrationCompte.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
@@ -124,7 +124,30 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">80</div>
+                        <div class="numbers">
+                        <?php
+                            include("connect.php");
+
+                            // Exécution de la requête SQL
+                            $result = mysqli_query($con, "SELECT SUM(id) AS total_balance FROM client");
+
+                            // Vérification des erreurs d'exécution de la requête
+                            if ($result) {
+                                // Extraction de la somme du résultat
+                                $row = mysqli_fetch_assoc($result);
+                                $somme = $row['total_balance'];
+
+                                // Affichage de la somme dans la balise <div>
+                                echo $somme ;
+                            } else {
+                                // Gestion des erreurs
+                                echo "Erreur d'exécution de la requête : " . mysqli_error($con);
+                            }
+
+                            // Fermeture de la connexion à la base de données
+                            mysqli_close($con);
+                            ?>
+                        </div>
                         <div class="cardName">Client</div>
                     </div>
 
@@ -146,8 +169,32 @@
 
                 <div class="card">
                     <div>
-                        <div class="numbers">$7,842</div>
-                        <div class="cardName">Earning</div>
+                        <div class="numbers">
+                            <?php
+                            include("connect.php");
+
+                            // Exécution de la requête SQL
+                            $result = mysqli_query($con, "SELECT SUM(balance) AS total_balance FROM compte");
+
+                            // Vérification des erreurs d'exécution de la requête
+                            if ($result) {
+                                // Extraction de la somme du résultat
+                                $row = mysqli_fetch_assoc($result);
+                                $somme = $row['total_balance'];
+
+                                // Affichage de la somme dans la balise <div>
+                                echo $somme . "$";
+                            } else {
+                                // Gestion des erreurs
+                                echo "Erreur d'exécution de la requête : " . mysqli_error($con);
+                            }
+
+                            // Fermeture de la connexion à la base de données
+                            mysqli_close($con);
+                            ?>
+                        </div>
+
+                        <div class="cardName">Capitale</div>
                     </div>
 
                     <div class="iconBx">
@@ -239,7 +286,8 @@
                                         <th>telephone</th>
                                         <th>Date de na</th>
                                         <th>Address</th>
-                                        <th>Salary</th>
+                                        <th>Agense</th>
+                                        
                                     </tr>
                                     </thead>
 
@@ -255,7 +303,8 @@
                                                         <td>{$row['tel']}</td>
                                                         <td>{$row['date_in']}</td>
                                                         <td>{$row['Address_C']}</td>
-                                                        <td>1000DHs</td>
+                                                        <td>Asafi</td>
+                                                        
                                                      </tr>";
                         }
 
