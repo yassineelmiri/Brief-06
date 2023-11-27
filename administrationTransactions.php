@@ -204,14 +204,42 @@
             </div>
 
             <!-- ================ ajoute les client ================= -->
-            <h1 id="ajouter">Rechercher</h1>
+            <h1 id="ajouter">Gestion Compte</h1>
 
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-
-                <div class="label">Rechercher</div>
+                <div class="label">Number de Client</div>
+                <input type="text" name="idCompte">
+                <div class="label">First Name</div>
                 <input type="text" name="FirstName">
-                <button class="submit" type="submit" name="submit">SELECT</button>
+                <div class="label">montant</div>
+                <input type="number" name="montant">
+                <div class="label">types</div>
+                <select name="types">
+                    <option></option>
+                    <option>crédit</option>
+                    <option>débit</option>
+                </select>
+                <button class="submit" type="submit" name="submit">Submit</button>
+                <?php
 
+                include("connect.php");
+
+                if (isset($_POST["submit"])) {
+                    $FirstName = htmlspecialchars(strtolower(trim($_POST['FirstName'])));
+                    $montant = htmlspecialchars(strtolower(trim($_POST['montant'])));
+                    $types = htmlspecialchars(strtolower(trim($_POST['types'])));
+                    $idCompte = htmlspecialchars(strtolower(trim($_POST['idCompte'])));
+
+                    if ($idCompte && $montant && $FirstName && $types) {
+                        // Ne spécifiez pas la colonne id dans la requête d'insertion
+                        $query = "INSERT INTO transactions(FirstName,montant,types,idCompte)values( '$FirstName', '$montant','$types','$idCompte')";
+                        mysqli_query($con, $query);
+                        echo "valid";
+                    } else {
+                        echo "Il faut saisir tous les champs";
+                    }
+                }
+                ?>
             </form>
 
 
@@ -222,55 +250,142 @@
                         <h2>Résultat </h2>
                         <a href="#" class="btn">View All</a>
                     </div>
-                    <?php
+
+
+                    <?php // Connexion à la base de données
                     include("connect.php");
-                    if (isset($_POST["submit"])) {
-                        $query = "SELECT *FROM client WHERE FirstName ='$_POST[FirstName]' ";
-                        $result = mysqli_query($con, $query);
+
+                    // Vérifier la connexion
+                    if (!$con) {
+                        die("La connexion a échoué : " . mysqli_connect_error());
+                    }
+
+                    // Requête pour récupérer la liste des comptes
+                    $query = "SELECT * FROM transactions";
+                    $result = mysqli_query($con, $query);
+
+                    // Vérifier si la requête a réussi
+                    if ($result) {
+                        // Afficher la liste des comptes
                         echo "<table border='1'>
-                                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>FirstName</th>
-                                <th>LastName</th>
-                                <th>Email</th>
-                                <th>telephone</th>
-                                <th>Date de na</th>
-                                <th>Address</th>
-                                <th>Salary</th>
-                            </tr>
-                            </thead>
+                                    <thead>
+                                    <tr>
+                                        <th>Les Transaction</th>
+                                        <th>FirstName</th>
+                                        <th>montant</th>
+                                        <th>types</th
+                                        <th>client</th>
+                                    </tr>
+                                    </thead>";
 
-                                        ";
-                        while ($row = mysqli_fetch_array($result)) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             echo "
-                             <tbody><tr>
-                            <td>{$row['id']}</td>
-                            <td>{$row['FirstName']}</td>
-                            <td>{$row['LastName']}</td>
-                            <td>{$row['email']}</td>
-                            <td>{$row['tel']}</td>
-                            <td>{$row['date_in']}</td>
-                            <td>{$row['Address_C']}</td>
-                            <td>1000DHs</td>
-                           </tr>";
+                                                    <tbody><tr>
+                                                        <td>{$row['id']}</td>
+                                                        <td>{$row['FirstName']}</td>
+                                                        <td>{$row['montant']}DHs</td>
+                                                        <td>{$row['types']}</td>
+                                                        <td>{$row['idCompte']}</td>
+                                                         
+                                                     </tr>";
                         }
-
                         echo "</tbody></table>";
-                        echo "RECORD SELECT :" . mysqli_affected_rows($con);
-
+                    } else {
+                        echo "Erreur lors de l'exécution de la requête : " . mysqli_error($con);
                     }
                     ?>
+                </div>
 
+                <!-- ================= New Customers ================ -->
+                <div class="recentCustomers">
+                    <div class="cardHeader">
+                        <h2>Recent Customers</h2>
+                    </div>
 
+                    <table>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>David <br> <span>Italy</span></h4>
+                            </td>
+                        </tr>
 
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Amit <br> <span>India</span></h4>
+                            </td>
+                        </tr>
 
-                    <!-- =========== Scripts =========  -->
-                    <script src="assets/js/main.js"></script>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>David <br> <span>Italy</span></h4>
+                            </td>
+                        </tr>
 
-                    <!-- ====== ionicons ======= -->
-                    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-                    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Amit <br> <span>India</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>David <br> <span>Italy</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Amit <br> <span>India</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer01.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>David <br> <span>Italy</span></h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td width="60px">
+                                <div class="imgBx"><img src="assets/imgs/customer02.jpg" alt=""></div>
+                            </td>
+                            <td>
+                                <h4>Amit <br> <span>India</span></h4>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 
 </html>

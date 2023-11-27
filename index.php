@@ -42,7 +42,7 @@ session_start();
                 <input type="password" name="password" placeholder="Enter your password">
                 <button type="submit" name="login-submit">Login</button>
             </form>
-            <a href="signup.php">Sign Up</a>';
+            ';
             }
             ?>
 
@@ -55,7 +55,7 @@ session_start();
         <div class="left">
             <h1>HI <span>CIH BANK</span> Cheaper From MAROC</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit doloremque earum, totam laudantium dolor voluptatum fugiat. Odio doloribus nostrum harum corporis. Natus omnis deleniti reiciendis illum maxime necessitatibus accusantium esse.</p>
-            <a href="#">sing up</a>
+            <a href="bank/bank.php">sing up</a>
         </div>
         <div class="right">
             <img src="image/10293713_752465881521289_8183950733319840116_o.jpg">

@@ -16,7 +16,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="administration.php">
                         <span class="icon">
                             <ion-icon name="card-sharp"></ion-icon>
                         </span>
@@ -43,7 +43,7 @@
                 </li>
 
                 <li>
-                    <a href="#ajouter">
+                    <a href="administrationCompte.php">
                         <span class="icon">
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </span>
@@ -71,11 +71,11 @@
                 </li>
 
                 <li>
-                    <a href="administrationCompte.php">
+                    <a href="administrationTransactions.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Transaction</span>
                     </a>
                 </li>
 

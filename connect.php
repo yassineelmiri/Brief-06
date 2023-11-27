@@ -2,7 +2,7 @@
 $host = 'localhost';
 $user = 'root';
 $pw = '';
-$ndb = 'sign';
+$ndb = 'sing';
 
 $con = mysqli_connect($host, $user, $pw, $ndb);
 // if ($con) {

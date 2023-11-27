@@ -16,7 +16,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="#">
+                    <a href="administration.php">
                         <span class="icon">
                             <ion-icon name="card-sharp"></ion-icon>
                         </span>
@@ -43,7 +43,7 @@
                 </li>
 
                 <li>
-                    <a href="#ajouter">
+                    <a href="administrationCompte.php">
                         <span class="icon">
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </span>
@@ -71,11 +71,11 @@
                 </li>
 
                 <li>
-                    <a href="administrationCompte.php">
+                    <a href="administrationTransactions.php">
                         <span class="icon">
                             <ion-icon name="settings-outline"></ion-icon>
                         </span>
-                        <span class="title">Settings</span>
+                        <span class="title">Transaction</span>
                     </a>
                 </li>
 
@@ -207,7 +207,8 @@
             <h1 id="ajouter">Ajouter</h1>
 
             <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="POST">
-
+                <div class="label">numéro de user</div>
+                <input type="text" name="idUers">
                 <div class="label">First Name</div>
                 <input type="text" name="FirstName">
                 <div class="label">Last Name</div>
@@ -234,12 +235,13 @@
                     // if (!empty($_POST["name"]) && !empty($_POST("email")) && !empty($_POST["password"]) ) {
                     $FirstName = htmlspecialchars(strtolower(trim($_POST['FirstName'])));
                     $LastName = htmlspecialchars(strtolower(trim($_POST['LastName'])));
+                    $idUers = htmlspecialchars(strtolower(trim($_POST['idUers'])));
                     $email = htmlspecialchars(strtolower(trim($_POST['email'])));
                     $tel = $_POST['tel'];
                     $date_in = $_POST['date_in'];
                     $Address_C = htmlspecialchars(strtolower(trim($_POST['Address_C'])));
-                    if ($FirstName && $LastName && $email && $tel && $date_in) {
-                        $query = "INSERT INTO client(FirstName,LastName,email,tel,date_in,Address_C)values('$FirstName','$LastName','$email','$tel','$date_in','$Address_C')";
+                    if ($idUers && $FirstName && $LastName && $email && $tel && $date_in) {
+                        $query = "INSERT INTO client(idUers,FirstName,LastName,email,tel,date_in,Address_C)values('$idUers','$FirstName','$LastName','$email','$tel','$date_in','$Address_C')";
                         mysqli_query($con, $query);
                         echo "valid";
 
@@ -279,14 +281,14 @@
                         echo "<table border='1'>
                                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>nomber de client</th>
                                         <th>FirstName</th>
                                         <th>LastName</th>
                                         <th>Email</th>
                                         <th>telephone</th>
                                         <th>Date de na</th>
                                         <th>Address</th>
-                                        <th>Agense</th>
+                                        <th>numero de user</th>
                                         
                                     </tr>
                                     </thead>
@@ -303,7 +305,7 @@
                                                         <td>{$row['tel']}</td>
                                                         <td>{$row['date_in']}</td>
                                                         <td>{$row['Address_C']}</td>
-                                                        <td>Asafi</td>
+                                                        <td>{$row['idUers']}</td>
                                                         
                                                      </tr>";
                         }
